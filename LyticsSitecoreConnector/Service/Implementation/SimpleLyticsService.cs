@@ -40,7 +40,7 @@ namespace LyticsSitecoreConnector.Service.Implementation
 			WebClient wc = new WebClient();
 			dynamic data =
 				JsonConvert.DeserializeObject<ExpandoObject>(
-					wc.DownloadString(LyticsContext.RootAddress + "/api/segment?access_token=" + LyticsContext.AccessKey));
+					wc.DownloadString(string.Format("{0}/api/segment?access_token={1}", LyticsContext.RootAddress, LyticsContext.AccessKey)));
 			if (data != null && data.data != null)
 				foreach (dynamic segment in data.data)
 				{
@@ -122,7 +122,7 @@ namespace LyticsSitecoreConnector.Service.Implementation
 					dynamic data =
 						JsonConvert.DeserializeObject<ExpandoObject>(
 							wc.DownloadString(
-								$"{LyticsContext.RootAddress}/api/entity/user/_uids/{userId}?access_token={LyticsContext.AccessKey}&fields=none"));
+								string.Format("{0}/api/entity/user/_uids/{1}?access_token={2}&fields=none", LyticsContext.RootAddress, userId, LyticsContext.AccessKey)));
 					if (data != null && data.data != null && data.data.segments_all != null)
 						foreach (string segment in data.data.segments_all)
 						{

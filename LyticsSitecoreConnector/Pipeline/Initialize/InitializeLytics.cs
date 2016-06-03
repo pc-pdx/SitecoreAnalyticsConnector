@@ -79,7 +79,8 @@ namespace LyticsSitecoreConnector.Pipeline.Initialize
 				{
 					var manifestResourceStream = GetType().Assembly
 						.GetManifestResourceStream("LyticsSitecoreConnector.Resources.Lytics.zip");
-					manifestResourceStream?.CopyTo(new FileStream(filepath, FileMode.Create));
+					if(null!=manifestResourceStream)
+						manifestResourceStream.CopyTo(new FileStream(filepath, FileMode.Create));
 					Task.Run(() =>
 					{
 
@@ -160,7 +161,8 @@ namespace LyticsSitecoreConnector.Pipeline.Initialize
 			}
 			finally
 			{
-				stream?.Close();
+				if(null!=stream)
+					stream.Close();
 			}
 
 			//file is not locked
